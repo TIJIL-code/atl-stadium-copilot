@@ -35,5 +35,15 @@ if user_input:
     with st.spinner("Analyzing operational systems..."):
         agent_executor = get_ops_agent()
         response = agent_executor.invoke({"input": user_input})
-        st.markdown("### 📋 Copilot Tactical Action Directive")
-        st.write(response["output"])
+    st.markdown("### 📋 Copilot Tactical Action Directive")
+
+    # Extract clean text if Gemini wraps it inside a nested response block
+    output_data = response.get("output", "")
+    if isinstance(output_data, list) and len(output_data) > 0:
+        clean_text = output_data[0].get("text", str(output_data))
+    elif isinstance(output_data, dict):
+        clean_text = output_data.get("text", str(output_data))
+    else:
+        clean_text = str(output_data)
+
+    st.markdown(clean_text)
