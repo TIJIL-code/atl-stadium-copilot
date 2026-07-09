@@ -5,7 +5,6 @@ from langchain_classic.agents import AgentExecutor, create_openai_tools_agent
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.tools import tool
 
-# Load environment variables from .env file
 load_dotenv()
 
 @tool
@@ -38,7 +37,6 @@ def check_stadium_weather_and_roof() -> str:
 tools = [check_live_gate_congestion, check_marta_transit_status, check_stadium_weather_and_roof]
 
 def get_ops_agent():
-    # Swapped from OpenAI to Gemini Flash
     llm = ChatGoogleGenerativeAI(model="gemini-3.5-flash", temperature=0.1)
     
     prompt = ChatPromptTemplate.from_messages([
@@ -54,6 +52,5 @@ def get_ops_agent():
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ])
     
-    # Gemini handles OpenAI tool-calling schemas perfectly out of the box
     agent = create_openai_tools_agent(llm, tools, prompt)
     return AgentExecutor(agent=agent, tools=tools, verbose=True)
