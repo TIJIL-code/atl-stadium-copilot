@@ -60,30 +60,30 @@ with col1:
     
     m1, m2, m3 = st.columns(3)
     with m1:
-        st.markdown("<div class='tactical-box'>", unsafe_allow_html=True)
-        st.write("🌌 **MARTA Status**")
-        st.markdown(f"<p class='metric-val'>{transit_data['marta_status']} ({transit_data['capacity_utilization']})</p>", unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class='tactical-box'>
+                <span style='font-size: 14px;'>🌌 <b>MARTA Status</b></span><br/>
+                <p class='metric-val' style='margin: 5px 0 0 0;'>{transit_data['marta_status']} ({transit_data['capacity_utilization']})</p>
+            </div>
+        """, unsafe_allow_html=True)
         
     with m2:
-        st.markdown("<div class='tactical-box'>", unsafe_allow_html=True)
-        st.write("🏟️ **Retractable Roof**")
-        st.markdown(f"<p class='metric-val'>{weather_data['roof_state']}</p>", unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class='tactical-box'>
+                <span style='font-size: 14px;'>🏟️ <b>Retractable Roof</b></span><br/>
+                <p class='metric-val' style='margin: 5px 0 0 0;'>{weather_data['roof_state']}</p>
+            </div>
+        """, unsafe_allow_html=True)
         
     with m3:
-        st.markdown("<div class='tactical-box'>", unsafe_allow_html=True)
-        st.write("⚡ **Lightning Detection**")
-        st.markdown(f"<p class='metric-val'>{weather_data['lightning_distance_miles']} Miles Out</p>", unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class='tactical-box'>
+                <span style='font-size: 14px;'>⚡ <b>Lightning Detection</b></span><br/>
+                <p class='metric-val' style='margin: 5px 0 0 0;'>{weather_data['lightning_distance_miles']} Miles Out</p>
+            </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("### 🌐 3D Digital Twin Bowl Grid")
-    
-    # Restored interactive 3D container frame
-    st.components.v1.html("""
-        <iframe src="https://threejs.org/examples/webgl_geometry_shapes.html" style="width:100%; height:500px; border:2px solid #1f402b; border-radius:8px;"></iframe>
-    """, height=520)
-
 with col2:
     st.markdown("### 🚪 Gate Flow Metrics")
     for gate in gate_data:
