@@ -85,21 +85,20 @@ with col1:
 
     st.markdown("### 🌐 3D Digital Twin Bowl Grid")
     
-    # Fully self-contained 3D Cyber-Stadium Wireframe Core
     st.components.v1.html("""
     <!DOCTYPE html>
     <html>
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
         <style>
-            body { margin: 0; overflow: hidden; background-color: #142a1c; }
+            body { margin: 0; overflow: hidden; background-color: #0b1d12; }
             canvas { width: 100%; height: 100%; display: block; }
         </style>
     </head>
     <body>
         <script>
             const scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x142a1c);
+            scene.background = new THREE.Color(0x0b1d12);
 
             const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.set(0, 45, 85);
@@ -111,42 +110,52 @@ with col1:
 
             const stadiumGroup = new THREE.Group();
 
-            // Create a glowing neon green wireframe material
-            const wireMaterial = new THREE.MeshBasicMaterial({
-                color: 0x00ff88,
+            // Tactical Materials Palette
+            const bowlMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
                 wireframe: true,
                 transparent: true,
-                opacity: 0.8
+                opacity: 0.6
             });
 
-            // Outer Stadium Structural Bowl Cylinders
+            const pitchMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xffcc00, 
+                wireframe: true,
+                transparent: true,
+                opacity: 0.7
+            });
+
+            const roofMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00ff88,
+                wireframe: true
+            });
+
+            // White Structural Outer Bowl Elements
             for (let i = 0; i < 4; i++) {
                 const radius = 30 + (i * 6);
                 const height = 4 + (i * 5);
                 const geo = new THREE.CylinderGeometry(radius, radius - 2, height, 32, 2, true);
-                const ring = new THREE.Mesh(geo, wireMaterial);
+                const ring = new THREE.Mesh(geo, bowlMaterial);
                 ring.position.y = height / 2;
                 stadiumGroup.add(ring);
             }
 
-            // Inner Pitch Outline
+            // Yellow Pitch Infrastructure Matrix
             const pitchGeo = new THREE.PlaneGeometry(42, 26, 4, 4);
-            const pitchMaterial = new THREE.MeshBasicMaterial({ color: 0x00aa55, wireframe: true });
             const pitch = new THREE.Mesh(pitchGeo, pitchMaterial);
             pitch.rotation.x = -Math.PI / 2;
             pitch.position.y = 0.1;
             stadiumGroup.add(pitch);
 
-            // Roof Ring Girder
+            // Neon Green Primary Upper Roof Ring
             const roofGeo = new THREE.TorusGeometry(50, 1.5, 8, 48);
-            const roof = new THREE.Mesh(roofGeo, wireMaterial);
+            const roof = new THREE.Mesh(roofGeo, roofMaterial);
             roof.rotation.x = Math.PI / 2;
             roof.position.y = 22;
             stadiumGroup.add(roof);
 
             scene.add(stadiumGroup);
 
-            // Subtle rotation animation to look like an active digital twin
             function animate() {
                 requestAnimationFrame(animate);
                 stadiumGroup.rotation.y += 0.003;
