@@ -18,15 +18,16 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-    .main { background-color: #0f111a; color: #ffffff; }
+    .stApp { background-color: #0b1d12; color: #ffffff; }
     .tactical-box {
-        background-color: #1a1c24;
-        border: 1px solid #2e313d;
+        background-color: #142a1c;
+        border: 1px solid #1f402b;
         border-radius: 8px;
         padding: 20px;
         margin-bottom: 20px;
     }
-    .metric-val { font-size: 24px; font-weight: bold; color: #00ffcc; }
+    .metric-val { font-size: 24px; font-weight: bold; color: #00ff88; }
+    h1, h2, h3, p, span, label { color: #ffffff !important; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -77,11 +78,11 @@ with col1:
         st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("### 🌐 3D Digital Twin Bowl Grid")
+    
+    # Restored interactive 3D container frame
     st.components.v1.html("""
-        <div style="background-color: #151821; height: 350px; border: 1px dashed #444; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #888;">
-            [ Interactive WebGL Vector Stadium Model Active ]
-        </div>
-    """, height=360)
+        <iframe src="https://threejs.org/examples/webgl_geometry_shapes.html" style="width:100%; height:500px; border:2px solid #1f402b; border-radius:8px;"></iframe>
+    """, height=520)
 
 with col2:
     st.markdown("### 🚪 Gate Flow Metrics")
@@ -111,7 +112,7 @@ if user_input:
                 response = st.session_state.agent_core.invoke({"input": user_input})
                 
                 st.markdown("<div class='tactical-box'>", unsafe_allow_html=True)
-                st.markdown("<h3 style='color: #00ffcc; margin-top: 0;'>📋 Copilot Tactical Action Directive</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 style='color: #00ff88; margin-top: 0;'>📋 Copilot Tactical Action Directive</h3>", unsafe_allow_html=True)
                 
                 output_data = response.get("output", "")
                 if isinstance(output_data, list) and len(output_data) > 0:
