@@ -83,10 +83,86 @@ with col1:
             </div>
         """, unsafe_allow_html=True)
 
-    # --- RESTORED 3D VIEWPORT CORE ---
     st.markdown("### 🌐 3D Digital Twin Bowl Grid")
+    
+    # Fully self-contained 3D Cyber-Stadium Wireframe Core
     st.components.v1.html("""
-        <iframe src="https://threejs.org/examples/webgl_geometry_shapes.html" style="width:100%; height:500px; border:2px solid #1f402b; border-radius:8px;"></iframe>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <style>
+            body { margin: 0; overflow: hidden; background-color: #142a1c; }
+            canvas { width: 100%; height: 100%; display: block; }
+        </style>
+    </head>
+    <body>
+        <script>
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x142a1c);
+
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 45, 85);
+            camera.lookAt(0, 0, 0);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            const stadiumGroup = new THREE.Group();
+
+            // Create a glowing neon green wireframe material
+            const wireMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00ff88,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            // Outer Stadium Structural Bowl Cylinders
+            for (let i = 0; i < 4; i++) {
+                const radius = 30 + (i * 6);
+                const height = 4 + (i * 5);
+                const geo = new THREE.CylinderGeometry(radius, radius - 2, height, 32, 2, true);
+                const ring = new THREE.Mesh(geo, wireMaterial);
+                ring.position.y = height / 2;
+                stadiumGroup.add(ring);
+            }
+
+            // Inner Pitch Outline
+            const pitchGeo = new THREE.PlaneGeometry(42, 26, 4, 4);
+            const pitchMaterial = new THREE.MeshBasicMaterial({ color: 0x00aa55, wireframe: true });
+            const pitch = new THREE.Mesh(pitchGeo, pitchMaterial);
+            pitch.rotation.x = -Math.PI / 2;
+            pitch.position.y = 0.1;
+            stadiumGroup.add(pitch);
+
+            // Roof Ring Girder
+            const roofGeo = new THREE.TorusGeometry(50, 1.5, 8, 48);
+            const roof = new THREE.Mesh(roofGeo, wireMaterial);
+            roof.rotation.x = Math.PI / 2;
+            roof.position.y = 22;
+            stadiumGroup.add(roof);
+
+            scene.add(stadiumGroup);
+
+            // Subtle rotation animation to look like an active digital twin
+            function animate() {
+                requestAnimationFrame(animate);
+                stadiumGroup.rotation.y += 0.003;
+                renderer.render(scene, camera);
+            }
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            animate();
+        </script>
+    </body>
+    </html>
     """, height=520)
 with col2:
     st.markdown("### 🚪 Gate Flow Metrics")
