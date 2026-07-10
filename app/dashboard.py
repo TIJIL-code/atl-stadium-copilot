@@ -83,7 +83,11 @@ with col1:
             </div>
         """, unsafe_allow_html=True)
 
+    # --- RESTORED 3D VIEWPORT CORE ---
     st.markdown("### 🌐 3D Digital Twin Bowl Grid")
+    st.components.v1.html("""
+        <iframe src="https://threejs.org/examples/webgl_geometry_shapes.html" style="width:100%; height:500px; border:2px solid #1f402b; border-radius:8px;"></iframe>
+    """, height=520)
 with col2:
     st.markdown("### 🚪 Gate Flow Metrics")
     for gate in gate_data:
